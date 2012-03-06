@@ -1,0 +1,59 @@
+{
+   "abstract" : "Get a domain name's \"public suffix\" via Mozilla's Public Suffix List",
+   "author" : [
+      "Richard Sim\u00c3\u00b5es <rsimoes AT cpan DOT org>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 4.300008, CPAN::Meta::Converter version 2.120630",
+   "license" : [
+      "lgpl_3_0"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Mozilla-PublicSuffix",
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "Module::Build" : "0.3601"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "Module::Build" : "0.3601"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Exporter" : "0",
+            "Net::LibIDN" : "0",
+            "perl" : "5.008"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "File::Find" : "0",
+            "File::Temp" : "0",
+            "Test::Exception" : "0",
+            "Test::More" : "0",
+            "Test::Requires" : "0",
+            "perl" : "5.006"
+         }
+      }
+   },
+   "release_status" : "testing",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/rsimoes/mozilla-publicsuffix/issues"
+      },
+      "homepage" : "https://metacpan.org/release/Mozilla-PublicSuffix",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/rsimoes/mozilla-publicsuffix.git",
+         "web" : "https://github.com/rsimoes/mozilla-publicsuffix"
+      }
+   },
+   "version" : "v0.0.1"
+}
+
