@@ -28,7 +28,6 @@ my $builder = Module::Build->new(
     'Module::Build' => '0.3601'
   },
   'requires' => {
-    'Exporter' => '0',
     'Net::LibIDN' => '0',
     'perl' => '5.008'
   },

@@ -9,7 +9,7 @@ use Net::LibIDN qw(idn_prep_name idn_to_ascii idn_to_unicode);
 
 our @EXPORT_OK = qw(public_suffix);
 
-our $VERSION = 'v0.0.1'; # VERSION
+our $VERSION = 'v0.0.2'; # VERSION
 # ABSTRACT: Get a domain name's "public suffix" via Mozilla's Public Suffix List
 
 my %rules = qw();
@@ -22,12 +22,12 @@ sub public_suffix {
 
 	# Gather matching rules:
 	my @labels = split /\./, $domain;
-	my @matches;
-	for my $i ( 0 .. $#labels) {
-		my $label = join ".", @labels[ $i .. $#labels ];
-		exists $rules{$label} and push @matches, { type  => $rules{$label},
-												   label => $label }; }
-	@matches = sort { $b->{label} =~ /\./g <=> $a->{label} =~ /\./g } @matches;
+	my @matches = sort { $b->{label} =~ tr/.// <=> $a->{label} =~ tr/.// }
+		map {
+			my $label = $_ == 0 ? $domain : join ".", @labels[ $_ .. $#labels ];
+			exists $rules{$label}
+				? { type => $rules{$label}, label => $label }
+				: (); } 0 .. $#labels;
 
 	# Choose prevailing rule and return suffix, if one is to be found:
 	return do {
@@ -36,13 +36,10 @@ sub public_suffix {
 			: do {
 				my @exc_rules = grep { $_->{type} eq "e" } @matches;
 				@exc_rules > 0
-					? do {
-						@exc_rules == 1
-							? undef
-							: do {
-								# Recheck with left-mode label chopped off
-								@_ = $exc_rules[0]{label} =~ /^[^.]+\.(.*)$/;
-								goto &public_suffix; } }
+					? @exc_rules == 1
+						? undef
+						# Recheck with left-mode label chopped off
+						: public_suffix($exc_rules[0]{label} =~ /^[^.]+\.(.*)$/)
 					: do {
 						my ($type, $label) = @{$matches[0]}{qw(type label)};
 						$type eq "w"

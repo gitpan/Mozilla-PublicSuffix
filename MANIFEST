@@ -5,6 +5,7 @@ MANIFEST
 META.json
 META.yml
 README
+bench.pl
 dist.ini
 effective_tld_names.dat
 lib/Mozilla/PublicSuffix.pm
