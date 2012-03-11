@@ -1,5 +1,9 @@
+v0.1.0    2012-03-11 15:06:18 America/Chicago
+	- Fixed handling of exception rules.
+
 v0.0.2    2012-03-06 16:44:35 CST6CDT
-	- Added recreational microptimizations
-	- Promoted to full release
+	- Added recreational microptimizations.
+	- Promoted to full release.
+
 v0.0.1    2012-03-06 13:07:11 CST6CDT
 	- First version, released on an unsuspecting world.

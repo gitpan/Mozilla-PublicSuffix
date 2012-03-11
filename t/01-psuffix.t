@@ -58,17 +58,17 @@ is public_suffix("kyoto.jp"), undef;
 is public_suffix("c.kyoto.jp"), "c.kyoto.jp";
 is public_suffix("b.c.kyoto.jp"), "c.kyoto.jp";
 is public_suffix("a.b.c.kyoto.jp"), "c.kyoto.jp";
-is public_suffix("pref.kyoto.jp"), undef;	# Exception rule.
-is public_suffix("www.pref.kyoto.jp"), undef;	# Exception rule.
-is public_suffix("city.kyoto.jp"), undef;	# Exception rule.
-is public_suffix("www.city.kyoto.jp"), undef;	# Exception rule.
+is public_suffix("pref.kyoto.jp"), "pref.kyoto.jp";     # Exception rule.
+is public_suffix("www.pref.kyoto.jp"), "pref.kyoto.jp"; # Exception rule.
+is public_suffix("city.kyoto.jp"), "city.kyoto.jp";     # Exception rule.
+is public_suffix("www.city.kyoto.jp"), "city.kyoto.jp"; # Exception rule.
 # TLD with a wildcard rule and exceptions.
 is public_suffix("om"), undef;
 is public_suffix("test.om"), "test.om";
 is public_suffix("b.test.om"), "test.om";
 is public_suffix("a.b.test.om"), "test.om";
-is public_suffix("songfest.om"), undef;
-is public_suffix("www.songfest.om"), undef;
+is public_suffix("songfest.om"), "songfest.om";
+is public_suffix("www.songfest.om"), "songfest.om";
 # US K12.
 is public_suffix("us"), "us";
 is public_suffix("test.us"), "us";
