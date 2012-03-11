@@ -1,3 +1,6 @@
+v0.1.1    2012-03-11 18:01:25 America/Chicago
+	- Double speed by using &lc instead of &idn_prep_name
+
 v0.1.0    2012-03-11 15:06:18 America/Chicago
 	- Fixed handling of exception rules.
 
