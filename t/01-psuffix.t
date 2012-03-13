@@ -13,10 +13,10 @@ is public_suffix("COM"), "com";
 is public_suffix("example.COM"), "com";
 is public_suffix("WwW.example.COM"), "com";
 # Leading dot.
-is public_suffix(".com"), "com";
-is public_suffix(".example"), undef;
-is public_suffix(".example.com"), "com";
-is public_suffix(".example.example"), undef;
+dies_ok { public_suffix(".com") };
+dies_ok { public_suffix(".example") };
+dies_ok { public_suffix(".example.com") };
+dies_ok { public_suffix(".example.example") };
 # Unlisted TLD.
 is public_suffix("example"), undef;
 is public_suffix("example.example"), undef;

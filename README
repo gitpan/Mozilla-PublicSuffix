@@ -1,9 +1,9 @@
 
 
 This archive contains the distribution Mozilla-PublicSuffix,
-version v0.1.2:
+version v0.1.3:
 
-  Get a domain name's "public suffix" via Mozilla's Public Suffix List
+  Get a domain name's public suffix via the Mozilla Public Suffix List
 
 This software is Copyright (c) 2012 by Richard Simões.
 

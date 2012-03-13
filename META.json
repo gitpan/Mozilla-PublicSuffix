@@ -1,5 +1,5 @@
 {
-   "abstract" : "Get a domain name's \"public suffix\" via Mozilla's Public Suffix List",
+   "abstract" : "Get a domain name's public suffix via the Mozilla Public Suffix List",
    "author" : [
       "Richard Sim\u00c3\u00b5es <rsimoes AT cpan DOT org>"
    ],
@@ -26,6 +26,7 @@
       },
       "runtime" : {
          "requires" : {
+            "Regexp::Common" : "0",
             "URI::_idna" : "0",
             "perl" : "5.008"
          }
@@ -53,6 +54,6 @@
          "web" : "https://github.com/rsimoes/mozilla-publicsuffix"
       }
    },
-   "version" : "v0.1.2"
+   "version" : "v0.1.3"
 }
 

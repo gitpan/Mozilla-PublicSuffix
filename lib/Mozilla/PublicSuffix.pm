@@ -5,18 +5,22 @@ use warnings FATAL => "all";
 use utf8;
 use parent "Exporter";
 use Carp;
+use Regexp::Common "net";
 use URI::_idna;
 
 our @EXPORT_OK = qw(public_suffix);
 
-our $VERSION = 'v0.1.2'; # VERSION
-# ABSTRACT: Get a domain name's "public suffix" via Mozilla's Public Suffix List
+our $VERSION = 'v0.1.3'; # VERSION
+# ABSTRACT: Get a domain name's public suffix via the Mozilla Public Suffix List
 
+my $dn_re = qr/^$RE{net}{domain}$/;
 sub public_suffix {
 	my $domain = lc $_[0];
 	index($domain, "xn--") != -1
 		and $domain = eval { URI::_idna::decode($_[0]) };
-
+	# Test domain well-formedness:
+	$domain =~ $dn_re
+		or croak("Argument passed is not a well-formed domain name");
 	return _find_rule($domain, substr($domain, index($domain, ".") + 1 ) ) }
 
 my %rules = qw();
@@ -38,14 +42,11 @@ sub _find_rule {
 					: _find_rule($rhs, substr($rhs, index($rhs, ".") + 1 ) ) } }
 
 1;
-
-
-1;
 =encoding utf8
 
 =head1 NAME
 
-Mozilla::PublicSuffix - Get a domain name's public suffix via Mozilla's Public Suffix List
+Mozilla::PublicSuffix - Get a domain name's public suffix via the Mozilla Public Suffix List
 
 =head1 SYNOPSIS
 
@@ -61,8 +62,16 @@ Mozilla::PublicSuffix - Get a domain name's public suffix via Mozilla's Public S
 =head1 DESCRIPTION
 
 This module provides a single function that returns the I<public suffix> of a
-domain name by referencing a parsed copy of Mozilla's Public Suffix List
-(official website at L<http://publicsuffix.org>).
+domain name by referencing a parsed copy of Mozilla's Public Suffix List.
+From the official website at L<http://publicsuffix.org>:
+
+=over
+
+A "public suffix" is one under which Internet users can directly register names.
+Some examples of public suffixes are .com, .co.uk and pvt.k12.wy.us. The Public
+Suffix List is a list of all known public suffixes.
+
+=back
 
 A copy of the official list is bundled with the distribution. As the official
 list continues to be updated, the bundled copy will inevitably fall out of date.
@@ -76,8 +85,9 @@ list and download/use it if one is found.
 
 =item public_suffix($domain)
 
-Exported on request. Simply returns the public suffix of the passed domain, or
-C<undef> if a public suffix is not found.
+Exported on request. Simply returns the public suffix of the passed domain name,
+or C<undef> if the public suffix is not found. Croaks if the passed argument is
+not a well-formed domain name.
 
 =back
 

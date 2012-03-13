@@ -1,5 +1,5 @@
 ---
-abstract: "Get a domain name's \"public suffix\" via Mozilla's Public Suffix List"
+abstract: "Get a domain name's public suffix via the Mozilla Public Suffix List"
 author:
   - 'Richard Simões <rsimoes AT cpan DOT org>'
 build_requires:
@@ -20,10 +20,11 @@ meta-spec:
   version: 1.4
 name: Mozilla-PublicSuffix
 requires:
+  Regexp::Common: 0
   URI::_idna: 0
   perl: 5.008
 resources:
   bugtracker: https://github.com/rsimoes/mozilla-publicsuffix/issues
   homepage: https://metacpan.org/release/Mozilla-PublicSuffix
   repository: git://github.com/rsimoes/mozilla-publicsuffix.git
-version: v0.1.2
+version: v0.1.3
