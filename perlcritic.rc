@@ -1,4 +1,4 @@
 severity = 3
 verbose  = 9
-exclude  = ValuesAndExpressions::ProhibitVersionStrings Subroutines::RequireArgUnpacking RegularExpressions::RequireExtendedFormatting Subroutines::ProhibitExplicitReturnUndef BuiltinFunctions::ProhibitComplexMappings
+exclude  = ValuesAndExpressions::ProhibitVersionStrings Subroutines::RequireArgUnpacking RegularExpressions::RequireExtendedFormatting Subroutines::ProhibitExplicitReturnUndef BuiltinFunctions::ProhibitComplexMappings ValuesAndExpressions::ProhibitMixedBooleanOperators BuiltinFunctions::RequireBlockMap
 include  = Variables::ProhibitPackageVars

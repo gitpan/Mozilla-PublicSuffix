@@ -20,10 +20,10 @@ meta-spec:
   version: 1.4
 name: Mozilla-PublicSuffix
 requires:
-  Net::LibIDN: 0
+  URI::_idna: 0
   perl: 5.008
 resources:
   bugtracker: https://github.com/rsimoes/mozilla-publicsuffix/issues
   homepage: https://metacpan.org/release/Mozilla-PublicSuffix
   repository: git://github.com/rsimoes/mozilla-publicsuffix.git
-version: v0.1.1
+version: v0.1.2

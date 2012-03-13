@@ -26,7 +26,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Net::LibIDN" : "0",
+            "URI::_idna" : "0",
             "perl" : "5.008"
          }
       },
@@ -53,6 +53,6 @@
          "web" : "https://github.com/rsimoes/mozilla-publicsuffix"
       }
    },
-   "version" : "v0.1.1"
+   "version" : "v0.1.2"
 }
 

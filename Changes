@@ -1,3 +1,7 @@
+v0.1.2    2012-03-12 19:25:09 America/Chicago
+	- Algorithm optimized still further.
+	- Removed rule causing a croak on domains with a leading dot.
+
 v0.1.1    2012-03-11 18:01:25 America/Chicago
 	- Double speed by using &lc instead of &idn_prep_name
 

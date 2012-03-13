@@ -28,7 +28,7 @@ my $builder = Module::Build->new(
     'Module::Build' => '0.3601'
   },
   'requires' => {
-    'Net::LibIDN' => '0',
+    'URI::_idna' => '0',
     'perl' => '5.008'
   },
    );

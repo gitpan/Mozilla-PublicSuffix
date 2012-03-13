@@ -5,43 +5,40 @@ use warnings FATAL => "all";
 use utf8;
 use parent "Exporter";
 use Carp;
-use Net::LibIDN qw(idn_to_ascii idn_to_unicode);
+use URI::_idna;
 
 our @EXPORT_OK = qw(public_suffix);
 
-our $VERSION = 'v0.1.1'; # VERSION
+our $VERSION = 'v0.1.2'; # VERSION
 # ABSTRACT: Get a domain name's "public suffix" via Mozilla's Public Suffix List
 
-my %rules = qw();
 sub public_suffix {
-	my ($domain) = @_;
+	my $domain = lc $_[0];
+	index($domain, "xn--") != -1
+		and $domain = eval { URI::_idna::decode($_[0]) };
 
-	# Test domain well-formedness:
-	$domain = eval { idn_to_unicode idn_to_ascii lc $domain }
-		or croak("Argument passed is not a well-formed domain name");
+	return _find_rule($domain, substr($domain, index($domain, ".") + 1 ) ) }
 
-	my @labels = split /\./, $domain;
-	return exists $rules{$labels[-1]}
-		? do {
-			# Gather matching rules:
-			my @matches = sort {
-				$b->{label} =~ tr/.// <=> $a->{label} =~ tr/.// }
-				map {
-					my $label = $_ ? join ".", @labels[$_..$#labels] : $domain;
-					exists $rules{$label}
-						? { type => $rules{$label}, label => $label }
-						: () } 0 .. $#labels;
+my %rules = qw();
+sub _find_rule {
+	my ($domain, $rhs) = @_;
+	my $drule = $rules{$domain};
+	return defined $drule       # Test for rule with full domain
+		? $drule eq "w"
+			? undef             # Wildcard rules need an extra level.
+			: $domain
+		: $domain eq $rhs
+			? undef
+			: do {
+				my $rrule = $rules{$rhs};
+				defined $rrule  # Test for rule with right-hand side
+					? $rrule eq "w"
+						? $domain
+						: $rhs
+					: _find_rule($rhs, substr($rhs, index($rhs, ".") + 1 ) ) } }
 
-			# Choose prevailing rule and return suffix:
-			my ($exc_rule) = grep { $_->{type} eq "e" } @matches;
-			$exc_rule
-				? $exc_rule->{label}
-				: do {
-					my ($type, $label) = @{$matches[0]}{qw(type label)};
-					$type eq "w"
-						and ($label) = $domain =~ /((?:[^.]+\.)$label)$/;
-					$label ||= undef } }
-		: undef }
+1;
+
 
 1;
 =encoding utf8
@@ -79,9 +76,8 @@ list and download/use it if one is found.
 
 =item public_suffix($domain)
 
-Exported on request. Simply returns the public suffix of the passed argument,
-or C<undef> if the public suffix is not found. Croaks if the passed argument
-is not a well-formed domain name.
+Exported on request. Simply returns the public suffix of the passed domain, or
+C<undef> if a public suffix is not found.
 
 =back
 
@@ -91,8 +87,8 @@ is not a well-formed domain name.
 
 =item L<Domain::PublicSuffix>
 
-An alternative to this module, with an object-oriented interface and slightly
-difference interpretation of the rules Mozilla stipulates for determining a
+Similar to this module, with an object-oriented interface and somewhat
+alternative interpretation of the rules Mozilla stipulates for determining a
 public suffix.
 
 =back
@@ -101,7 +97,7 @@ public suffix.
 
 Richard Simões C<< <rsimoes AT cpan DOT org> >>
 
-=head1 COPYRIGHT AND LICENSE
+=head1 COPYRIGHT & LICENSE
 
 Copyright © 2012 Richard Simões. This module is released under the terms of the
 L<GNU Lesser General Public License v. 3.0|http://gnu.org/licenses/lgpl.html>
