@@ -3,14 +3,14 @@ package Mozilla::PublicSuffix;
 use strict;
 use warnings FATAL => "all";
 use utf8;
-use parent "Exporter";
 use Carp;
+use Exporter "import";
 use Regexp::Common "net";
 use URI::_idna;
 
 our @EXPORT_OK = qw(public_suffix);
 
-our $VERSION = 'v0.1.3'; # VERSION
+our $VERSION = 'v0.1.4'; # VERSION
 # ABSTRACT: Get a domain name's public suffix via the Mozilla Public Suffix List
 
 my $dn_re = qr/^$RE{net}{domain}$/;

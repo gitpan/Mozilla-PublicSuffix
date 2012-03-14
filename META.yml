@@ -27,4 +27,4 @@ resources:
   bugtracker: https://github.com/rsimoes/mozilla-publicsuffix/issues
   homepage: https://metacpan.org/release/Mozilla-PublicSuffix
   repository: git://github.com/rsimoes/mozilla-publicsuffix.git
-version: v0.1.3
+version: v0.1.4
