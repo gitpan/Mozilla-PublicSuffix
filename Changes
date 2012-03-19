@@ -1,3 +1,7 @@
+v0.1.5    2012-03-19 14:57:20 America/Chicago
+	- Explicitly declared configure_requires module not added to core until
+	  Perl v5.14.
+
 v0.1.4    2012-03-14 10:35:21 America/Chicago
 	- Remove undeclared core dependency; "parent" not added until Perl v5.10.1
 

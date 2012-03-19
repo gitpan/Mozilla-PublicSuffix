@@ -25,6 +25,7 @@ my $builder = Module::Build->new(
     'perl' => '5.006'
   },
   'configure_requires' => {
+    'HTTP::Tiny' => '0',
     'Module::Build' => '0.3601'
   },
   'requires' => {

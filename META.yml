@@ -11,9 +11,10 @@ build_requires:
   Test::Requires: 0
   perl: 5.006
 configure_requires:
+  HTTP::Tiny: 0
   Module::Build: 0.3601
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300009, CPAN::Meta::Converter version 2.120630'
+generated_by: 'Dist::Zilla version 4.300010, CPAN::Meta::Converter version 2.120630'
 license: lgpl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -27,4 +28,4 @@ resources:
   bugtracker: https://github.com/rsimoes/mozilla-publicsuffix/issues
   homepage: https://metacpan.org/release/Mozilla-PublicSuffix
   repository: git://github.com/rsimoes/mozilla-publicsuffix.git
-version: v0.1.4
+version: v0.1.5
