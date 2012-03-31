@@ -10,7 +10,7 @@ use URI::_idna;
 
 our @EXPORT_OK = qw(public_suffix);
 
-our $VERSION = 'v0.1.5'; # VERSION
+our $VERSION = 'v0.1.6'; # VERSION
 # ABSTRACT: Get a domain name's public suffix via the Mozilla Public Suffix List
 
 my $dn_re = qr/^$RE{net}{domain}$/;
