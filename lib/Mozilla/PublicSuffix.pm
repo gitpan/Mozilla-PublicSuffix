@@ -10,36 +10,36 @@ use URI::_idna;
 
 our @EXPORT_OK = qw(public_suffix);
 
-our $VERSION = 'v0.1.6'; # VERSION
+our $VERSION = 'v0.1.7'; # VERSION
 # ABSTRACT: Get a domain name's public suffix via the Mozilla Public Suffix List
 
 my $dn_re = qr/^$RE{net}{domain}$/;
 sub public_suffix {
-	my $domain = lc $_[0];
-	index($domain, "xn--") != -1
-		and $domain = eval { URI::_idna::decode($_[0]) };
-	# Test domain well-formedness:
-	$domain =~ $dn_re
-		or croak("Argument passed is not a well-formed domain name");
-	return _find_rule($domain, substr($domain, index($domain, ".") + 1 ) ) }
+    my $domain = lc $_[0];
+    index($domain, "xn--") != -1
+        and $domain = eval { URI::_idna::decode($_[0]) };
+    # Test domain well-formedness:
+    $domain =~ $dn_re
+        or croak("Argument passed is not a well-formed domain name");
+    return _find_rule($domain, substr($domain, index($domain, ".") + 1 ) ) }
 
 my %rules = qw();
 sub _find_rule {
-	my ($domain, $rhs) = @_;
-	my $drule = $rules{$domain};
-	return defined $drule       # Test for rule with full domain
-		? $drule eq "w"
-			? undef             # Wildcard rules need an extra level.
-			: $domain
-		: $domain eq $rhs
-			? undef
-			: do {
-				my $rrule = $rules{$rhs};
-				defined $rrule  # Test for rule with right-hand side
-					? $rrule eq "w"
-						? $domain
-						: $rhs
-					: _find_rule($rhs, substr($rhs, index($rhs, ".") + 1 ) ) } }
+    my ($domain, $rhs) = @_;
+    my $drule = $rules{$domain};
+    return defined $drule       # Test for rule with full domain
+        ? $drule eq "w"
+            ? undef             # Wildcard rules need an extra level.
+            : $domain
+        : $domain eq $rhs
+            ? undef
+            : do {
+                my $rrule = $rules{$rhs};
+                defined $rrule  # Test for rule with right-hand side
+                    ? $rrule eq "w"
+                        ? $domain
+                        : $rhs
+                    : _find_rule($rhs, substr($rhs, index($rhs, ".") + 1 ) ) } }
 
 1;
 =encoding utf8
@@ -110,6 +110,5 @@ Richard Simões C<< <rsimoes AT cpan DOT org> >>
 =head1 COPYRIGHT & LICENSE
 
 Copyright © 2012 Richard Simões. This module is released under the terms of the
-L<GNU Lesser General Public License v. 3.0|http://gnu.org/licenses/lgpl.html>
-and may be modified and/or redistributed under the same or any compatible
-license.
+B<MIT License> and may be modified and/or redistributed under the same or any
+compatible license.
