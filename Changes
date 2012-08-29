@@ -1,3 +1,9 @@
+v0.1.8    2012-08-29 14:06:38 America/Chicago
+    - Updated bundled list to latest version.
+    - Adjusted .jp tests to match new list rules.
+    - Abandoned awful lispish syntax experiment (sorry).
+    - Changed default for downloading new public suffix list on install to "no."
+
 v0.1.7    2012-06-28 08:46:41 America/Chicago
     - Untabified.
     - Readded excluded author/release tests.

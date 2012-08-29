@@ -31,23 +31,28 @@ my $builder = Module::Build->new(
     'URI::_idna' => '0',
     'perl' => '5.008'
   },
-   );
+);
 
 my $DAT = "effective_tld_names.dat";
--M $DAT > 30 and do {
-    $builder->y_n(
-    "Check for a new version of the Public Suffix List?", "Y" )
-        and do {
-            my $http = HTTP::Tiny->new( timeout => 6 );
-            my $list_uri = "http://mxr.mozilla.org"
-                . "/mozilla-central/source/netwerk/dns/$DAT?raw=1";
-            my %options = (
-                headers => {
-                    "If-Modified-Since" => "Wed, 22 Feb 2012 16:00:41 GMT" } );
-            my $response = $http->get( $list_uri, \%options );
-            $response->{status} == 200
-                and IO::File->new($DAT, "w")->print(
-                    $response->{content} ); } };
+if ( -M $DAT > 30 ) {
+    my $get_new_list = $builder->y_n(
+        "Check for a new version of the Public Suffix List?", "N"
+    );
+    if ($get_new_list) {
+        my $http = HTTP::Tiny->new( timeout => 6 );
+        my $list_uri = "http://mxr.mozilla.org"
+                     . "/mozilla-central/source/netwerk/dns/$DAT?raw=1";
+        my %options = (
+            headers => {
+                "If-Modified-Since" => "Wed, 22 Feb 2012 16:00:41 GMT"
+            }
+        );
+        my $response = $http->get( $list_uri, \%options );
+        if ( $response->{status} == 200 ) {
+            IO::File->new($DAT, "w")->print( $response->{content} );
+        }
+    }
+}
 
 # Divide rules from list into sets:
 my $rules = join " ", map {

@@ -2,7 +2,7 @@
 
 use strict;
 use warnings FATAL => "all";
-use Test::More tests => 62;
+use Test::More tests => 58;
 use Test::Exception;
 use Mozilla::PublicSuffix "public_suffix";
 
@@ -54,14 +54,14 @@ is public_suffix("www.test.jp"), "jp";
 is public_suffix("ac.jp"), "ac.jp";
 is public_suffix("test.ac.jp"), "ac.jp";
 is public_suffix("www.test.ac.jp"), "ac.jp";
-is public_suffix("kyoto.jp"), undef;
-is public_suffix("c.kyoto.jp"), "c.kyoto.jp";
-is public_suffix("b.c.kyoto.jp"), "c.kyoto.jp";
-is public_suffix("a.b.c.kyoto.jp"), "c.kyoto.jp";
-is public_suffix("pref.kyoto.jp"), "pref.kyoto.jp";     # Exception rule.
-is public_suffix("www.pref.kyoto.jp"), "pref.kyoto.jp"; # Exception rule.
-is public_suffix("city.kyoto.jp"), "city.kyoto.jp";     # Exception rule.
-is public_suffix("www.city.kyoto.jp"), "city.kyoto.jp"; # Exception rule.
+is public_suffix("kyoto.jp"), "kyoto.jp";
+is public_suffix("c.kyoto.jp"), "kyoto.jp";
+is public_suffix("b.c.kyoto.jp"), "kyoto.jp";
+is public_suffix("a.b.c.kyoto.jp"), "kyoto.jp";
+#is public_suffix("pref.kyoto.jp"), "pref.kyoto.jp";     # Exception rule.
+#is public_suffix("www.pref.kyoto.jp"), "pref.kyoto.jp"; # Exception rule.
+#is public_suffix("city.kyoto.jp"), "city.kyoto.jp";     # Exception rule.
+#is public_suffix("www.city.kyoto.jp"), "city.kyoto.jp"; # Exception rule.
 # TLD with a wildcard rule and exceptions.
 is public_suffix("om"), undef;
 is public_suffix("test.om"), "test.om";
