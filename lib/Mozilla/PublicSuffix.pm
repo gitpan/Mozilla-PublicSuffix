@@ -9,7 +9,7 @@ use URI::_idna;
 
 our @EXPORT_OK = qw(public_suffix);
 
-our $VERSION = 'v0.1.9'; # VERSION
+our $VERSION = 'v0.1.10'; # VERSION
 # ABSTRACT: Get a domain name's public suffix via the Mozilla Public Suffix List
 
 my $dn_re = do {
@@ -18,7 +18,7 @@ my $dn_re = do {
     my $anh = "[[:alnum:]-]";
     my $re_str = join(
         "",
-        "(?:$alf(?:(?:$anh){0,61}$aln)?",
+        "(?:$aln(?:(?:$anh){0,61}$aln)?",
         "(?:\\.$alf(?:(?:$anh){0,61}$aln)?)*)"
     );
     qr/^$re_str$/;
