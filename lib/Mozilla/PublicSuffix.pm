@@ -5,15 +5,24 @@ use warnings FATAL => "all";
 use utf8;
 use Carp;
 use Exporter "import";
-use Regexp::Common "net";
 use URI::_idna;
 
 our @EXPORT_OK = qw(public_suffix);
 
-our $VERSION = 'v0.1.8'; # VERSION
+our $VERSION = 'v0.1.9'; # VERSION
 # ABSTRACT: Get a domain name's public suffix via the Mozilla Public Suffix List
 
-my $dn_re = qr/^$RE{net}{domain}$/;
+my $dn_re = do {
+    my $alf = "[[:alpha:]]";
+    my $aln = "[[:alnum:]]";
+    my $anh = "[[:alnum:]-]";
+    my $re_str = join(
+        "",
+        "(?:$alf(?:(?:$anh){0,61}$aln)?",
+        "(?:\\.$alf(?:(?:$anh){0,61}$aln)?)*)"
+    );
+    qr/^$re_str$/;
+};
 sub public_suffix {
     # Decode domains in punycode form:
     my $domain = index($_[0], "xn--") == -1
@@ -75,14 +84,14 @@ Mozilla::PublicSuffix - Get a domain name's public suffix via the Mozilla Public
 
 =head1 SYNOPSIS
 
-	use feature "say";
-	use Mozilla::PublicSuffix "public_suffix";
+    use feature "say";
+    use Mozilla::PublicSuffix "public_suffix";
 
-	say public_suffix("org");       # "org"
-	say public_suffix("perl.org");  # "org"
-	say public_suffix("perl.orc");  # undef
-	say public_suffix("ga.gov.au"); # "gov.au"
-	say public_suffix("ga.goo.au"); # undef
+    say public_suffix("org");       # "org"
+    say public_suffix("perl.org");  # "org"
+    say public_suffix("perl.orc");  # undef
+    say public_suffix("ga.gov.au"); # "gov.au"
+    say public_suffix("ga.goo.au"); # undef
 
 =head1 DESCRIPTION
 

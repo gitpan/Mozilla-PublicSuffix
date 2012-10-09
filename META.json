@@ -4,7 +4,7 @@
       "Richard Sim\u00c3\u00b5es <rsimoes AT cpan DOT org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300021, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Dist::Zilla version 4.300024, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "mit"
    ],
@@ -27,7 +27,6 @@
       },
       "runtime" : {
          "requires" : {
-            "Regexp::Common" : "0",
             "URI::_idna" : "0",
             "perl" : "5.008"
          }
@@ -53,6 +52,6 @@
          "web" : "https://github.com/rsimoes/mozilla-publicsuffix"
       }
    },
-   "version" : "v0.1.8"
+   "version" : "v0.1.9"
 }
 
