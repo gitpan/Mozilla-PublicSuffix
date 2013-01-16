@@ -1,3 +1,6 @@
+v0.1.11   2013-01-16 17:05:57 America/Chicago
+    - Updated bundled list to latest version.
+
 v0.1.10   2012-10-08 21:39:28 America/Chicago
     - Permitted domains to have a leading digit per RFC 1123.
 
