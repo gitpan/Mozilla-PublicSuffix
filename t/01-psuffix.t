@@ -2,21 +2,23 @@
 
 use strict;
 use warnings FATAL => "all";
-use Test::More tests => 58;
-use Test::Exception;
+use Test::More tests => 60;
 use Mozilla::PublicSuffix "public_suffix";
 
-# undef input.
-dies_ok { public_suffix(undef) };
+# obviously invalid input.
+is public_suffix(undef), undef;
+is public_suffix(""), undef;
+is public_suffix([]), undef;
+
 # Mixed case.
 is public_suffix("COM"), "com";
 is public_suffix("example.COM"), "com";
 is public_suffix("WwW.example.COM"), "com";
 # Leading dot.
-dies_ok { public_suffix(".com") };
-dies_ok { public_suffix(".example") };
-dies_ok { public_suffix(".example.com") };
-dies_ok { public_suffix(".example.example") };
+is public_suffix(".com"), undef;
+is public_suffix(".example"), undef;
+is public_suffix(".example.com"), undef;
+is public_suffix(".example.example"), undef;
 # Unlisted TLD.
 is public_suffix("example"), undef;
 is public_suffix("example.example"), undef;

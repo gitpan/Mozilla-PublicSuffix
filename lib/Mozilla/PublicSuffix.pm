@@ -3,13 +3,12 @@ package Mozilla::PublicSuffix;
 use strict;
 use warnings FATAL => "all";
 use utf8;
-use Carp;
 use Exporter "import";
 use URI::_idna;
 
 our @EXPORT_OK = qw(public_suffix);
 
-our $VERSION = 'v0.1.11'; # VERSION
+our $VERSION = 'v0.1.12'; # VERSION
 # ABSTRACT: Get a domain name's public suffix via the Mozilla Public Suffix List
 
 my $dn_re = do {
@@ -24,15 +23,16 @@ my $dn_re = do {
     qr/^$re_str$/;
 };
 sub public_suffix {
-    # Decode domains in punycode form:
-    my $domain = index($_[0], "xn--") == -1
-        ? lc $_[0]
-        : eval { lc URI::_idna::decode($_[0]) };
 
-    # Test domain well-formedness:
-    if ($domain !~ $dn_re) {
-        croak("Argument passed is not a well-formed domain name");
-    }
+    # Decode domains in punycode form:
+    my $domain = defined($_[0]) && ref(\$_[0]) eq "SCALAR"
+        ? index($_[0], "xn--") == -1
+            ? lc $_[0]
+            : eval { lc URI::_idna::decode($_[0]) }
+        : "";
+
+    # Return early if domain is not well-formed:
+    return undef unless $domain =~ $dn_re;
 
     # Search using the full domain and a substring consisting of its lowest
     # levels:
@@ -120,8 +120,7 @@ list and download/use it if one is found.
 =item public_suffix($domain)
 
 Exported on request. Simply returns the public suffix of the passed domain name,
-or C<undef> if the public suffix is not found. Croaks if the passed argument is
-not a well-formed domain name.
+or C<undef> if the public suffix is not found.
 
 =back
 
@@ -143,6 +142,6 @@ Richard Simões C<< <rsimoes AT cpan DOT org> >>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright © 2012 Richard Simões. This module is released under the terms of the
+Copyright © 2013 Richard Simões. This module is released under the terms of the
 B<MIT License> and may be modified and/or redistributed under the same or any
 compatible license.
