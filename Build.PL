@@ -31,14 +31,14 @@ my $builder = Module::Build->new(
   },
 );
 
-my $DAT = "effective_tld_names.dat";
+my $dat_file = "effective_tld_names.dat";
 my $get_new_list = $builder->y_n(
     "Check for a new version of the Public Suffix List?", "N"
 );
 if ($get_new_list) {
     my $http = HTTP::Tiny->new( timeout => 6 );
     my $list_uri = "http://mxr.mozilla.org"
-                 . "/mozilla-central/source/netwerk/dns/$DAT?raw=1";
+                 . "/mozilla-central/source/netwerk/dns/$dat_file?raw=1";
     my %options = (
         headers => {
             "If-Modified-Since" => "Mon, 18 Feb 2013 20:02:07 GMT"
@@ -46,7 +46,7 @@ if ($get_new_list) {
     );
     my $response = $http->get( $list_uri, \%options );
     if ( $response->{status} == 200 ) {
-        IO::File->new($DAT, "w")->print( $response->{content} );
+        IO::File->new($dat_file, "w")->print( $response->{content} );
     }
 }
 
@@ -57,10 +57,10 @@ my $rules = join " ", map {
     elsif ( s/^\*\.// )     { $_ => "w" }  # wildcard rule
     elsif ( /^[[:word:]]/ ) { $_ => "i" }  # identity rule
     else { () }
-} IO::File->new("effective_tld_names.dat")->getlines;
+} IO::File->new($dat_file)->getlines;
 
 tie my @pm, "Tie::File", "lib/Mozilla/PublicSuffix.pm";
-for (@pm) { s/(my %rules = qw\()/$1$rules/ and last }
+for (@pm) { s/(my %rules = qw\()\)/$1$rules)/ and last }
 untie @pm;
 
 $builder->create_build_script;

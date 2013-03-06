@@ -1,4 +1,7 @@
-v0.1.12   2013-02-20 11:34:41 CST6CDT
+v0.1.13   2013-03-06 15:22:50 America/Chicago
+    - Made Build.PL safe to run multiple times (wphillipmoore).
+
+v0.1.12   2013-02-20 11:34:41 America/Chicago
     - Changed to return undef (instead of croaking) if a passed domain name is
       not well-formed.
     - Changed build script to always ask if the latest list should be downloaded
