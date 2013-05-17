@@ -8,7 +8,7 @@ use URI::_idna;
 
 our @EXPORT_OK = qw(public_suffix);
 
-our $VERSION = 'v0.1.13'; # VERSION
+our $VERSION = 'v0.1.14'; # VERSION
 # ABSTRACT: Get a domain name's public suffix via the Mozilla Public Suffix List
 
 my $dn_re = do {
@@ -25,14 +25,14 @@ my $dn_re = do {
 sub public_suffix {
 
     # Decode domains in punycode form:
-    my $domain = defined($_[0]) && ref(\$_[0]) eq "SCALAR"
+    my $domain = defined($_[0]) && ref($_[0]) eq ""
         ? index($_[0], "xn--") == -1
             ? lc $_[0]
             : eval { lc URI::_idna::decode($_[0]) }
         : "";
 
     # Return early if domain is not well-formed:
-    return undef unless $domain =~ $dn_re;
+    return unless $domain =~ $dn_re;
 
     # Search using the full domain and a substring consisting of its lowest
     # levels:
@@ -47,13 +47,13 @@ sub _find_rule {
         # Test for rule match with full string:
         if (defined $rule) {
             # If a wilcard rule matches the full string; fail early:
-            if ($rule eq "w") { undef }
+            if ($rule eq "w") { () } # return undef in scalar context
             # All other rule matches mean success:
             else { $string }
         }
         # Fail if no match found and the full string and right-hand substring
         # are identical:
-        elsif ($string eq $rhs) { undef }
+        elsif ($string eq $rhs) { () } # return undef in scalar context
         # No match found with the full string, but there are more levels of the
         # domain to check:
         else {
@@ -97,7 +97,7 @@ Mozilla::PublicSuffix - Get a domain name's public suffix via the Mozilla Public
 
 This module provides a single function that returns the I<public suffix> of a
 domain name by referencing a parsed copy of Mozilla's Public Suffix List.
-From the official website at L<http://publicsuffix.org>:
+From the official website at L<http://publicsuffix.org/>:
 
 =over
 

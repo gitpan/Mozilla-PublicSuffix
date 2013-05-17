@@ -4,10 +4,8 @@ LICENSE
 MANIFEST
 META.yml
 README
-dist.ini
 effective_tld_names.dat
 lib/Mozilla/PublicSuffix.pm
-perlcritic.rc
 t/00-compile.t
 t/01-psuffix.t
 t/author-critic.t
