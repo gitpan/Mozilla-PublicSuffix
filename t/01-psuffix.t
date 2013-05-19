@@ -2,7 +2,7 @@
 
 use strict;
 use warnings FATAL => "all";
-use Test::More tests => 60;
+use Test::More tests => 65;
 use Mozilla::PublicSuffix "public_suffix";
 
 # obviously invalid input.
@@ -60,17 +60,18 @@ is public_suffix("kyoto.jp"), "kyoto.jp";
 is public_suffix("c.kyoto.jp"), "kyoto.jp";
 is public_suffix("b.c.kyoto.jp"), "kyoto.jp";
 is public_suffix("a.b.c.kyoto.jp"), "kyoto.jp";
-#is public_suffix("pref.kyoto.jp"), "pref.kyoto.jp";     # Exception rule.
-#is public_suffix("www.pref.kyoto.jp"), "pref.kyoto.jp"; # Exception rule.
-#is public_suffix("city.kyoto.jp"), "city.kyoto.jp";     # Exception rule.
-#is public_suffix("www.city.kyoto.jp"), "city.kyoto.jp"; # Exception rule.
+is public_suffix("ayabe.kyoto.jp"), "ayabe.kyoto.jp";
+is public_suffix("test.kobe.jp"), "test.kobe.jp";     # Wildcard rule.
+is public_suffix("www.test.kobe.jp"), "test.kobe.jp"; # Wildcard rule.
+is public_suffix("city.kobe.jp"), "kobe.jp";          # Exception rule.
+is public_suffix("www.city.kobe.jp"), "kobe.jp";      # Identity rule.
 # TLD with a wildcard rule and exceptions.
 is public_suffix("om"), undef;
 is public_suffix("test.om"), "test.om";
 is public_suffix("b.test.om"), "test.om";
 is public_suffix("a.b.test.om"), "test.om";
-is public_suffix("songfest.om"), "songfest.om";
-is public_suffix("www.songfest.om"), "songfest.om";
+is public_suffix("songfest.om"), "om";
+is public_suffix("www.songfest.om"), "om";
 # US K12.
 is public_suffix("us"), "us";
 is public_suffix("test.us"), "us";

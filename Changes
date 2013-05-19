@@ -1,4 +1,8 @@
-v0.1.14   2013-05-17 11:02:41 CST6CDT
+v0.1.15   2013-05-18 19:12:39 CST6CDT
+    - Fixed a bug that was yielding an incorrect result for some exception rules
+      (especially concerning jp and om).
+
+v0.1.14   2013-05-17 11:02:41 America/Chicago
     - Updated bundled list to latest version (revision 481e9a3d1cf2).
     - Cleaned up distribution, pruning dist.ini and perlcritic.rc.
     - Change returns to have no argument in accordance with PBP.

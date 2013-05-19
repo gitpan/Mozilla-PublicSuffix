@@ -8,7 +8,7 @@ use URI::_idna;
 
 our @EXPORT_OK = qw(public_suffix);
 
-our $VERSION = 'v0.1.14'; # VERSION
+our $VERSION = 'v0.1.15'; # VERSION
 # ABSTRACT: Get a domain name's public suffix via the Mozilla Public Suffix List
 
 my $dn_re = do {
@@ -36,40 +36,64 @@ sub public_suffix {
 
     # Search using the full domain and a substring consisting of its lowest
     # levels:
-    return _find_rule($domain, substr($domain, index($domain, ".") + 1 ) );
+    return _find_rule($domain);
 }
 
 my %rules = qw();
+
+# Right-hand side of a domain name:
+sub _rhs {
+    my ($domain) = @_;
+    return substr($domain, index($domain, ".") + 1);
+}
+
 sub _find_rule {
-    my ($string, $rhs) = @_;
-    my $rule = $rules{$string};
+    my ($domain) = @_;
+    my $rhs = _rhs($domain);
+    my $rule = $rules{$domain};
+
     return do {
-        # Test for rule match with full string:
+        # Test for rule match with full domain:
         if (defined $rule) {
-            # If a wilcard rule matches the full string; fail early:
-            if ($rule eq "w") { () } # return undef in scalar context
-            # All other rule matches mean success:
-            else { $string }
+            # An identity rule match means the full domain is the public suffix:
+            if ( $rule eq "i" ) { $domain } # return undef in scalar context
+
+            # If a wilcard rule matches the full domain, fail out:
+            elsif ( $rule eq "w" ) { () }
+
+            # An exception rule means the right-hand side is the public suffix:
+            else { $rhs }
         }
-        # Fail if no match found and the full string and right-hand substring
-        # are identical:
-        elsif ($string eq $rhs) { () } # return undef in scalar context
-        # No match found with the full string, but there are more levels of the
+
+        # Fail if no match found and the full domain and right-hand side are
+        # identical:
+        elsif ( $domain eq $rhs ) { () } # return undef in scalar context
+
+        # No match found with the full domain, but there are more levels of the
         # domain to check:
         else {
             my $rrule = $rules{$rhs};
+
             # Test for rule match with right-hand side:
             if (defined $rrule) {
-                # If a wildcard rule matches the right-hand substring, the
-                # full string is the public suffix:
-                if ($rrule eq "w") { $string }
-                # Otherwise, it's the substring:
-                else { $rhs }
+
+                # If a wildcard rule matches the right-hand side, the full
+                # domain is the public suffix:
+                if ( $rrule eq "w" ) { $domain }
+
+                # An identity rule match means it's the right-hand side:
+                elsif ( $rrule eq "i" ) { $rhs }
+
+                # An exception rule match means it's the right-hand side of the
+                # right-hand side:
+                else { _rhs($rhs) }
             }
-            # Recurse with the right-hand substring as the full string, and the
-            # old substring sans its lowest domain level as the new substring:
+
+            # Recurse with the right-hand side as the full domain, and the old
+            # right-hand side sans its lowest domain level as the new right-hand
+            # side:
             else {
-                _find_rule( $rhs, substr($rhs, index($rhs, ".") + 1 ) );
+                _find_rule($rhs, _rhs($rhs));
             }
         }
     }
@@ -102,7 +126,7 @@ From the official website at L<http://publicsuffix.org/>:
 =over
 
 A "public suffix" is one under which Internet users can directly register names.
-Some examples of public suffixes are .com, .co.uk and pvt.k12.wy.us. The Public
+Some examples of public suffixes are com, co.uk and pvt.k12.wy.us. The Public
 Suffix List is a list of all known public suffixes.
 
 =back
