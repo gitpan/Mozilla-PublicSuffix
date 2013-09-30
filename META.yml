@@ -3,8 +3,9 @@ abstract: "Get a domain name's public suffix via the Mozilla Public Suffix List"
 author:
   - 'Richard Simões <rsimoes AT cpan DOT org>'
 build_requires:
-  File::Find: 0
-  File::Temp: 0
+  File::Spec: 0
+  IO::Handle: 0
+  IPC::Open3: 0
   Module::Build: 0.3601
   Test::More: 0
 configure_requires:
@@ -13,17 +14,18 @@ configure_requires:
   Tie::File: 0
   URI: 0
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 4.300039, CPAN::Meta::Converter version 2.120921'
 license: mit
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Mozilla-PublicSuffix
 requires:
+  Exporter: 0
   URI: 0
   perl: 5.008
 resources:
   bugtracker: https://github.com/rsimoes/mozilla-publicsuffix/issues
   homepage: https://metacpan.org/release/Mozilla-PublicSuffix
   repository: git://github.com/rsimoes/mozilla-publicsuffix.git
-version: v0.1.15
+version: v0.1.16

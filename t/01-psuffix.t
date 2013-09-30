@@ -66,12 +66,12 @@ is public_suffix("www.test.kobe.jp"), "test.kobe.jp"; # Wildcard rule.
 is public_suffix("city.kobe.jp"), "kobe.jp";          # Exception rule.
 is public_suffix("www.city.kobe.jp"), "kobe.jp";      # Identity rule.
 # TLD with a wildcard rule and exceptions.
-is public_suffix("om"), undef;
-is public_suffix("test.om"), "test.om";
-is public_suffix("b.test.om"), "test.om";
-is public_suffix("a.b.test.om"), "test.om";
-is public_suffix("songfest.om"), "om";
-is public_suffix("www.songfest.om"), "om";
+is public_suffix("ck"), undef;
+is public_suffix("test.ck"), "test.ck";
+is public_suffix("b.test.ck"), "test.ck";
+is public_suffix("a.b.test.ck"), "test.ck";
+is public_suffix("www.ck"), "ck";
+is public_suffix("www.www.ck"), "ck";
 # US K12.
 is public_suffix("us"), "us";
 is public_suffix("test.us"), "us";

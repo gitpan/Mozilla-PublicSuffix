@@ -18,8 +18,9 @@ my $builder = Module::Build->new(
     dist_version_from => "lib/Mozilla/PublicSuffix.pm",
     # Prerequisites inserted by DistZilla:
       'build_requires' => {
-    'File::Find' => '0',
-    'File::Temp' => '0',
+    'File::Spec' => '0',
+    'IO::Handle' => '0',
+    'IPC::Open3' => '0',
     'Module::Build' => '0.3601',
     'Test::More' => '0'
   },
@@ -30,6 +31,7 @@ my $builder = Module::Build->new(
     'URI' => '0'
   },
   'requires' => {
+    'Exporter' => '0',
     'URI' => '0',
     'perl' => '5.008'
   },
