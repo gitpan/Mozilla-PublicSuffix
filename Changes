@@ -1,6 +1,11 @@
+v0.1.17   2014-01-28 16:26:34-06:00 America/Chicago
+    - Fixed another failure to match domain names according to RFC 1123
+      (contributed by mbroadhead on GitHub).
+    - Updated bundled list to latest version (revision a09fae6633f3).
+
 v0.1.16   2013-09-30 05:40:31 America/Chicago
     - Updated bundled list to latest version (revision 06c405ba54b3).
-    - Updated tests to meet requirements of new list (yaneti++).
+    - Updated tests to meet requirements of new list (contirbuted by yaneti).
 
 v0.1.15   2013-05-18 19:12:39 America/Chicago
     - Fixed a bug that was yielding incorrect results for some exception rules

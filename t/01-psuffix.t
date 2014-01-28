@@ -2,7 +2,7 @@
 
 use strict;
 use warnings FATAL => "all";
-use Test::More tests => 65;
+use Test::More tests => 67;
 use Mozilla::PublicSuffix "public_suffix";
 
 # obviously invalid input.
@@ -14,6 +14,8 @@ is public_suffix([]), undef;
 is public_suffix("COM"), "com";
 is public_suffix("example.COM"), "com";
 is public_suffix("WwW.example.COM"), "com";
+is public_suffix("123bar.com"), "com";
+is public_suffix("foo.123bar.com"), "com";
 # Leading dot.
 is public_suffix(".com"), undef;
 is public_suffix(".example"), undef;
