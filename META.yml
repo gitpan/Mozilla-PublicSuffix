@@ -14,7 +14,7 @@ configure_requires:
   Tie::File: 0
   URI: 0
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.012, CPAN::Meta::Converter version 2.132830'
+generated_by: 'Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.132830'
 license: mit
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -28,4 +28,4 @@ resources:
   bugtracker: https://github.com/rsimoes/mozilla-publicsuffix/issues
   homepage: https://metacpan.org/release/Mozilla-PublicSuffix
   repository: git://github.com/rsimoes/mozilla-publicsuffix.git
-version: v0.1.17
+version: v0.1.18

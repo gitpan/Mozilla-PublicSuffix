@@ -66,7 +66,7 @@ my $rules = join " ", map {
     s/\s//g;
     if    ( s/^!// )        { $_ => "e" }  # exception rule
     elsif ( s/^\*\.// )     { $_ => "w" }  # wildcard rule
-    elsif ( /^[[:word:]]/ ) { $_ => "i" }  # identity rule
+    elsif ( /^[\p{Word}]/ ) { $_ => "i" }  # identity rule
     else { () }
 } IO::File->new($dat_file)->getlines;
 
