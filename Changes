@@ -1,12 +1,16 @@
+v0.1.19   2014-07-23 10:54:13-05:00 America/Chicago
+    - Explicitly added IO::File build dependency (thanks whillipmoore).
+    - Updated bundled list to latest version (revision 131f3403a484).
+
 v0.1.18   2014-03-19 14:24:53-05:00 America/Chicago
-    - Fixed issue preventing suffixes with characters outside the suffix list
+    - Fixed issue preventing suffixes with characters outside the ASCII range
       from being added to the rule list.
     - Corrected some factual errors in the POD.
     - Updated bundled list to latest version (revision ba86f988fb17).
 
 v0.1.17   2014-01-28 16:26:34-06:00 America/Chicago
     - Fixed another failure to match domain names according to RFC 1123
-      (thanks to mbroadhead on GitHub).
+      (thanks mbroadhead).
     - Updated bundled list to latest version (revision a09fae6633f3).
 
 v0.1.16   2013-09-30 05:40:31 America/Chicago
@@ -24,7 +28,7 @@ v0.1.14   2013-05-17 11:02:41 America/Chicago
     - Change returns to have no argument in accordance with PBP.
 
 v0.1.13   2013-03-06 15:22:50 America/Chicago
-    - Made Build.PL safe to run multiple times (wphillipmoore).
+    - Made Build.PL safe to run multiple times (thanks wphillipmoore).
 
 v0.1.12   2013-02-20 11:34:41 America/Chicago
     - Changed to return undef (instead of croaking) if a passed domain name is

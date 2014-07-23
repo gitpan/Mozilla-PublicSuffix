@@ -7,6 +7,7 @@ use open ":encoding(UTF-8)";
 use Carp qw(croak);
 use HTTP::Tiny;
 use Module::Build;
+use IO::File;
 use Tie::File;
 use URI;
 
@@ -26,6 +27,7 @@ my $builder = Module::Build->new(
   },
   'configure_requires' => {
     'HTTP::Tiny' => '0',
+    'IO::File' => '0',
     'Module::Build' => '0.3601',
     'Tie::File' => '0',
     'URI' => '0'
